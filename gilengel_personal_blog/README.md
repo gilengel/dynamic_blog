@@ -4,12 +4,6 @@
   <p>
     <strong>Vue3 project for personal websides for tech enthusiasts :)</strong>
   </p>
-
-  <p>  
-    <a href="https://github.com/gilengel/chama/actions"><img src="https://img.shields.io/github/workflow/status/gilengel/chama/Code%20Coverage?style=for-the-badge" alt="build" ></a>
-    <a href="https://app.codecov.io/gh/gilengel/chama" rel="nofollow"><img src="https://img.shields.io/codecov/c/github/gilengel/chama?style=for-the-badge" alt="coverage"></a>
-    <a href="https://github.com/gilengel/chama/blob/main/LICENSE"><img src="https://img.shields.io/github/license/gilengel/chama?style=for-the-badge" alt="license"></a>
-  </p>
 </div>
 
 # Vision
