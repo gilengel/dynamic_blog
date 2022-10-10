@@ -12,6 +12,22 @@
   </p>
 </div>
 
+# Vision
+
+This project will give you an interactive application for showcasing your own project(s) and offering tutorials to readers with simple commenting functions. 
+
+It is developed with keeping the best practices in mind:
+* Test driven development with the aim of 100% in statement (C0), branch (C1) coverage
+* Proper linting and formatting (also covered by CI) 
+* Continues Integration (Github Actions) with Continues Releases on Github
+* Configuration to build a container for it (Podman, Docker) to allow easy deployment in any cloud environment
+
+
+# Development
+## Pushing Changes
+Before pushing your code to the remote server it is good practice to check rather your changes will
+pass the CI pipelines locally. You can do this by using https://github.com/nektos/act. 
+
 
 This template should help get you started developing with Vue 3 in Vite.
 
