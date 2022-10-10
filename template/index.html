@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet"> 
+  </head>
+  <body>
+    <div class="card card-1">
+      <div class="inner-border-bottom inner-border-right"></div>
+      <div class="inner-border-bottom inner-border-right header-middle center-left">
+        <ul class="navigation-list">
+            <li>Home</li>
+            <li>Education</li>
+            <li>Experience</li>
+        </ul>
+      </div>
+      <div class="inner-border-bottom center">
+        <span class="material-symbols-outlined">menu</span>
+      </div>
+
+      <div class="inner-border-right">
+        <h2>Projects</h2>
+        <ul>
+          <li>Chama</li>
+          <li>MapMe</li>
+        </ul>
+      </div>
+
+      <div class="inner-border-right center">
+      
+        <svg width="500" height="200" class="speech-bubble">
+          <line class="s" x1="0" y1="0" x2="0" y2=" 0" />
+          <line class="s" x1="0" y1="0" x2="0" y2="0" />
+          <line class="s" x1="0" y1="0" x2="0" y2="0" />
+          <line class="s" x1="0" y1="0" x2="0" y2="0" />
+          <line class="s" x1="0" y1="0" x2="0" y2="0" />
+          <line class="s" x1="0" y1="0" x2="0" y2="0" />
+          <line class="s" x1="0" y1="0" x2="0" y2="0" />
+        </svg> 
+      </div>
+      <div class="inner-border-right content">
+        <div class="main-text">
+          <h1>Gil Engel</h1>
+          <h2 class="stroke">Software engineer</h2>
+          <h2 class="stroke">Architect</h2>
+        </div>
+
+        <div class="bg">
+            <code>
+                pub trait PluginWithOptions<Data>: AnyPlugin<Data>
+                    where
+                        Data: Default + 'static,
+                    {
+                        /// Renders the ui elements for all plugin options
+                        fn view_options(&self, _context: &Context<App<Data>>) -> Html {
+                            html! {}
+                        }
+                    
+                        /// Called each time a property is updated. Use it to message the change or apply it to the plugin directly.
+                        fn update_property(&mut self, _property: &str, _value: Box<dyn Any>) {}
+                    
+                        fn identifier() -> &'static str
+                        where
+                            Self: Sized;
+                    
+                        /// Returns true if the plugin is currently enabled, false otherwise
+                        fn enabled(&self) -> bool;
+                    
+                        /// Enables the plugin in the editor.
+                        /// Note that calling this function does not disables the current enabled plugin if the execution behaviour is exclusive. This is
+                        /// done within the editor.
+                        fn enable(&mut self);
+                    
+                        /// Disables the plugin in the editor.
+                        fn disable(&mut self);
+                    
+                        /// Returns the execution behaviour of the plugin.
+                        fn execution_behaviour(&self) -> &PluginExecutionBehaviour;
+                    }            
+            </code>
+        </div>
+      </div>
+
+      <div class="center">
+        <ul class="icon-list">
+          <li><span class="icon material-symbols-outlined">map</span></li>
+          <li><span class="material-symbols-outlined">school</span></li>
+          <li><span class="material-symbols-outlined">mail</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card bg-card-1"></div>
+    <div class="card bg-card-2"></div>
+    <div class="card bg-card-3"></div>
+
+    <script>
+      const speechBubble = document.getElementsByClassName('speech-bubble')[0];
+      //const speechBubbleSize = 50;
+
+      const speechBubbleSize = { width: 50, height: 40};
+
+      const strokeWidth = 4;
+
+      const completeLines = document.getElementsByClassName('s');
+      //const b1 = document.getElementsByClassName('b1')[0];
+      //const b2 = document.getElementsByClassName('b2')[0];
+      //const s1 = document.getElementsByClassName('s1')[0];
+      //const s2 = document.getElementsByClassName('s2')[0];
+
+
+      function updateLine(line, x1, y1, x2, y2) {
+        line.setAttribute('x1', `${x1}`)
+        line.setAttribute('y1', `${y1}`)
+        line.setAttribute('x2', `${x2}`)
+        line.setAttribute('y2', `${y2}`)
+      }
+
+      const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
+      addEventListener('mousemove', (event) => {
+        if(speechBubble === undefined) {
+          return;
+        }        
+
+        const boundingBox = speechBubble.getBoundingClientRect();
+
+        const left = boundingBox.x;
+        const top = boundingBox.y;
+        const width = boundingBox.width;
+        const height = boundingBox.height;
+
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+
+        
+        const offsetX = clamp((mouseX - left), 0, width);
+        const offsetY = clamp((mouseY - top), 0, height);
+
+        const cornerOffset = 50;
+
+        const minX = speechBubbleSize.width;
+        const maxX = width - speechBubbleSize.width;
+        const minY = speechBubbleSize.height;
+        const maxY = height - speechBubbleSize.height;
+
+        // top side
+        if (offsetX > cornerOffset && offsetX < width - cornerOffset && offsetY < cornerOffset) {          
+          updateLine(completeLines[0], minX, maxY, maxX, maxY);
+          updateLine(completeLines[1], minX, minY, minX, maxY);
+          updateLine(completeLines[2], maxX, minY, maxX, maxY);
+          
+          const x1 = clamp(offsetX, 0, maxX - speechBubbleSize.width);
+          const x2 = clamp(offsetX + speechBubbleSize.width, 0, maxX);
+          updateLine(completeLines[3], minX, minY, x1, minY);          
+          updateLine(completeLines[4], x2, minY, maxX, minY);
+
+          updateLine(completeLines[5], x1, minY, x1, 0);
+          updateLine(completeLines[6], x1, 0, x2, minY);
+
+        }
+
+        // bottom
+        if (offsetX > cornerOffset && offsetX < width - cornerOffset && offsetY > height - cornerOffset) {
+          updateLine(completeLines[0], minX, minY, maxX, minY);
+          updateLine(completeLines[1], minX, minY, minX, maxY);
+          updateLine(completeLines[2], maxX, minY, maxX, maxY);
+
+          const x1 = clamp(offsetX, 0, maxX - speechBubbleSize.width);
+          const x2 = clamp(offsetX + speechBubbleSize.width, 0, maxX);
+          updateLine(completeLines[3], minX, maxY, x1, maxY);          
+          updateLine(completeLines[4], x2, maxY, maxX, maxY);
+
+          updateLine(completeLines[5], x1, maxY, x1, height);
+          updateLine(completeLines[6], x1, height, x2, maxY);
+        }
+
+        // left side
+        if (offsetX < cornerOffset && offsetY > cornerOffset && offsetY < height - cornerOffset) {
+          updateLine(completeLines[0], minX, minY, maxX, minY);
+          updateLine(completeLines[1], minX, maxY, maxX, maxY);
+          updateLine(completeLines[2], maxX, minY, maxX, maxY);   
+          
+          const y1 = clamp(offsetY, 0, maxY - speechBubbleSize.height);
+          const y2 = clamp(offsetY + speechBubbleSize.height, 0, maxY);
+          updateLine(completeLines[3], minX, minY, minX, y1);          
+          updateLine(completeLines[4], minX, y2, minX, maxY);    
+
+          updateLine(completeLines[5], minX, y2, 0, y2);
+          updateLine(completeLines[6], 0, y2, minX, y1);
+        }
+
+        // right side
+        if (offsetX > width - cornerOffset && offsetY > cornerOffset && offsetY < height - cornerOffset) {
+          updateLine(completeLines[0], minX, minY, maxX, minY);
+          updateLine(completeLines[1], minX, maxY, maxX, maxY);
+          updateLine(completeLines[2], minX, minY, minX, maxY);      
+
+          const y1 = clamp(offsetY, 0, maxY - speechBubbleSize.height);
+          const y2 = clamp(offsetY + speechBubbleSize.height, 0, maxY);
+          updateLine(completeLines[3], maxX, minY, maxX, y1);          
+          updateLine(completeLines[4], maxX, y2, maxX, maxY);    
+
+          updateLine(completeLines[5], maxX, y2, width, y2);
+          updateLine(completeLines[6], width, y2, maxX, y1);
+        }
+      })
+    </script>    
+  </body>
+</html>
