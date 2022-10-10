@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import PageCardTitle from "./PageCardTitle.vue";
 defineProps<{
-  msg: string;
+  tag: string;
 }>();
 </script>
 
 <template>
   <div class="item">
-    <div class="tag">{{ msg }}</div>
+    <div class="tag">{{ tag }}</div>
     <div class="card card-1">
       <div class="inner-border-bottom inner-border-right"></div>
       <div
@@ -43,9 +44,7 @@ defineProps<{
       </div>
       <div class="inner-border-right content">
         <div class="main-text">
-          <h1>Gil Engel</h1>
-          <h2 class="stroke">Software engineer</h2>
-          <h2 class="stroke">Architect</h2>
+          <PageCardTitle title="Title" :subtitles="['Muu', 'Muu']" />
         </div>
 
         <div class="bg">
@@ -255,20 +254,6 @@ $background-color: white;
       white-space: pre-line;
       font-size: 1.2em;
     }
-  }
-}
-
-.main-text {
-  transform: rotate(90deg);
-  display: block;
-
-  h1 {
-    font-size: 6em;
-  }
-
-  h2 {
-    font-size: 4em;
-    margin: 0em;
   }
 }
 

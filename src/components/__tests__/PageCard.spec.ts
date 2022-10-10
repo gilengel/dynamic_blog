@@ -5,7 +5,8 @@ import PageCard from "../PageCard.vue";
 
 describe("Card", () => {
   it("renders properly", () => {
-    const wrapper = mount(PageCard, { props: { msg: "Card" } });
+    const wrapper = mount(PageCard, { props: { tag: "Card" } });
+
     expect(wrapper.text()).toContain("Card");
   });
 });
