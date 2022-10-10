@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import Card from "./components/Card.vue";
+// import { RouterLink, RouterView } from "vue-router";
+import PageCard from "./components/PageCard.vue";
 </script>
 
 <template>
-  <Card msg="Home" />
+  <PageCard msg="Home" />
   <!--
   <header>
     

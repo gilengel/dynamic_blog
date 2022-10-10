@@ -1,5 +1,6 @@
 import { fileURLToPath, URL } from "node:url";
 
+/* eslint import/no-unresolved: [1, { ignore: ['vitest'] }] */
 import { defineConfig } from "vitest/config";
 import vue from "@vitejs/plugin-vue";
 

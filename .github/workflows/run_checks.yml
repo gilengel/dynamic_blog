@@ -1,0 +1,59 @@
+name: Runs All Unit Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+
+jobs:
+
+  typecheck:
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: keita-hino/vue-tsc-action@main
+  
+  lint:
+    strategy:
+      matrix:
+        node-version: [16.x]  
+  
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run lint
+
+  build:
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - run: npm ci
+      - run: npm run test:unit:coverage
+
+      - uses: codecov/codecov-action@v2
+        with:
+          files: coverage/lcov.info
+
