@@ -9,7 +9,7 @@ export default defineConfig({
   test: {
     coverage: {
       provider: "istanbul",
-      reporter: ["lcov"],
+      reporter: ["text", "lcov"],
 
       statements: 100,
       functions: 100,
