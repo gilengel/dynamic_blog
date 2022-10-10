@@ -14,8 +14,10 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout code      
+        uses: actions/checkout@v3
+      - name: Setup Node.js ${{ matrix.node-version }}        
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - uses: keita-hino/vue-tsc-action@main
@@ -27,30 +29,44 @@ jobs:
   
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout code    
+        uses: actions/checkout@v3
+      - name: Setup Node.js ${{ matrix.node-version }}        
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run lint
+      - name: Prepare workspace          
+        run: npm ci
+      - name: Run Linting    
+        run: npm run lint
 
-  build:
+  unit-test:
     strategy:
       matrix:
         node-version: [16.x]
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+         path: ~/.npm
+         key: npm-${{ hashFiles('package-lock.json') }}
+         restore-keys: npm-
+      - name: Prepare workspace
+        run: npm ci
+      - name: Run Unit Tests  
+        run: npm run test:unit:coverage
 
-      - run: npm ci
-      - run: npm run test:unit:coverage
-
-      - uses: codecov/codecov-action@v2
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v3
         with:
           files: coverage/lcov.info
 
