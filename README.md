@@ -4,6 +4,12 @@
   <p>
     <strong>Vue3 project for personal websides for tech enthusiasts :)</strong>
   </p>
+  
+
+  <p>  
+    <a href="https://app.codecov.io/gh/gilengel/dynamic_blog" rel="nofollow"><img src="https://img.shields.io/codecov/c/github/gilengel/dynamic_blog?style=for-the-badge" alt="coverage"></a>
+    <a href="https://github.com/gilengel/dynamic_blog/blob/main/LICENSE"><img src="https://img.shields.io/github/license/gilengel/dynamic_blog?style=for-the-badge" alt="license"></a>
+  </p>  
 </div>
 
 # Vision
